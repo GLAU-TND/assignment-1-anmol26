@@ -1,106 +1,196 @@
-# GLA University, 2020
+import com.sun.javaws.IconUtil;
 
-## Contact Lists
+import java.util.*;
+class Student
+{
+     String fname;
+     String lname;
+     String phone;
+     String email;
 
-Create a menu-driven program to emulate a Contact Lists Application. 
-You might see such apps in smartphones, you are free to go ahead and take ideas
-from your own contact applications.  
+    public Student(String fname, String lname, String phone, String email) 
+    {
+        this.fname = fname;
+        this.lname = lname;
+        this.phone = phone;
+        this.email = email;
+    }
 
-Your menu-driven program must look like: 
-```
-Welcome to DBC's Contact List App
-Press 1 to add a new contact
-Press 2 to view all contacts
-Press 3 to search for a contact
-Press 4 to delete a contact
-Press 5 to exit program 
-```
-
-The 'Add a new contact menu'
-```
-You have chosen to add a new contact: 
-Please enter the name of the Person
-First Name: Divyansh
-Last Name: Bhardwaj
-Contact Number: 1234567891
-Would you like to add another contact number? (y/n): y
-Contact Number: 2365987415
-Would you like to add another contact number? (y/n): n
-Would you like to add email address? (y/n): y
-Email Address: divyansh.bhardwaj@gla.ac.in
-```
-Information about the 'add a contact menu'
-1. This program will store this `Person` as a type (you have to create a Person class).
-That means this program uses a list of `Persons`.
-
-```java
-public class Person {
-    // a field to store the first name
-    // a field to store the last name
-    // a list to store multiple contact numbers (i.e a list of numbers)
-    // a field to store the email address of the person 
+    @Override
+    public String toString() {
+        return ("-------- * -------- * -------- * --------"+"\n"+
+                "First name :- "+ fname + "\n" +"Last name :- "+ lname + "\n" + "phone number :- "+ phone + "\n" + "email id :- "+ email);
+    }
+    public String disp()
+    {
+        return fname + " " + lname;
+    }
 }
-```
----
-The `view all contacts menu`
-```
----Here are all your contacts---
--------- * -------- * -------- * --------
-First Name: Jim
-Last Name: Carrey
-Contact Number(s): 1547852369, 1452879632
-Email address: jim@ace.ventura
--------- * -------- * -------- * --------
--------- * -------- * -------- * --------
-First Name: Robin
-Last Name: Williams
-Contact Number: 7845985632
-Email address: robin@blue.genie
--------- * -------- * -------- * --------
-```
-Information about the `view all contacts menu`
-1. No matter how the user adds the contacts in the list,
-they should always be alphabetically ordered on the basis of the first name.
-2. If the `Person` has only one contact number, then the contact card should show
-the number field as `Number` only. If the `Person` has multiple contacts, then it
-should show `Number(s)`.
---- 
+class Node1
+   {
+    Object data;
+    Node1 next;
 
-The `search for a contact menu`
-```
-You could search for a contact from their first names: 
-Jim
-1 match found!
--------- * -------- * -------- * --------
-First Name: Jim
-Last Name: Carrey
-Contact Number(s): 1547852369, 1452879632
-Email address: jim@ace.ventura
--------- * -------- * -------- * --------
-```
-Information about the above menu
-1. There can be multiple `Person` objects with the same name, in such a case, 
-show all the matches.
-2. If nothing is found, print `NO RESULTS FOUND!`
----
+    public Node1(Object data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+class LinkList
+{
 
-The `delete a contact menu`
-```
-Here are all your contacts: 
-1. Jim Carrey
-2. Robin Williams
-Press the number against the contact to delete it: 1
-Jim Carrey's contact deleted from list!
-```
----
+    Node1 head=null;
+    Node1 tail=null;
 
-Kindly DO NOT create the program in a single `Main` class. Try out some Object-Oriented Programming and
-use your skills from your software engineering classes as well.
+    public void add(Object data)
+    {
+        Node1 new_node=new Node1(data);
+        if(head==null)
+        {
+            head=new_node;
+            tail=new_node;
+        }
+        else
+        {
+            tail.next=new_node;
+            tail=new_node;
+        }
 
-Steps to attempt this assignment:
-1. Fork this repository.
-2. Clone the repository you forked to your computer.
-3. Write code and commit it.
-4. Push the code back to your fork.
 
-Please feel free to reach out to me in case of any queries.
+    }
+    public void show()
+    {
+
+        Node1 current=head;
+        if(current==null)
+        {
+            System.out.println("Empty List");
+        }
+        else {
+            while (current != null) {
+                System.out.println(current.data);
+                current=current.next;
+            }
+            System.out.println();
+
+        }
+    }
+
+
+    public void delete(int data)
+    {
+        Node1 temp,current;
+        current=head;
+        if(current==null)
+        {
+            System.out.println("List is Empty");
+        }
+        else
+        {
+            int count=data;
+            if(head!=tail)
+            {
+                temp=head;
+                current=null;
+
+                for(int i=0;i<count;i++)
+                {
+                    current=temp;
+                    temp=temp.next;
+                }
+                if(current!=null)
+                {
+                    current.next=temp.next;
+                    temp=null;
+                }
+                else {
+                    head = current = temp.next;
+
+                    temp = null;
+                }
+
+            }
+        }
+
+    }
+
+}
+public class Demo {
+    public static void main(String[] args) {
+
+        LinkList n2 = new LinkList();
+        Scanner sc = new Scanner(System.in);
+        boolean flag = true;
+        while (flag == true) {
+            System.out.println("Welcome to AG's Contact List App");
+            System.out.println("Press 1 to add a new contact");
+            System.out.println("Press 2 to view all contacts");
+            System.out.println("Press 3 to delete a contact");
+            System.out.println("Press 4 to exit program");
+            System.out.println();
+            int n = sc.nextInt();
+            sc.nextLine();
+            switch (n) {
+                case 1:
+                    System.out.print("Enter Fname : ");
+                    String fname = sc.nextLine();
+                    System.out.print("Enter Lname : ");
+                    String lname = sc.nextLine();
+                    System.out.print("Enter phone : ");
+                    String p=" , ";
+                    String phone = sc.nextLine();
+                    boolean flag1=true;
+                    while(flag1==true) {
+                        System.out.print("Do you want to add another phone number (y/n) ");
+                        String choice = sc.nextLine();
+                        if (choice.equals("y")) {
+                            String ano = sc.nextLine();
+                            phone = phone + p + ano;
+                        }
+                        else
+                        {
+                            flag1=false;
+                        }
+                    }
+                    System.out.print("Enter email : ");
+                    String em=" , ";
+                    String email = sc.nextLine();
+                    boolean flag3=true;
+                    while(flag3==true) {
+                        System.out.print("Do you want to add another email (y/n) ");
+                        String choice2 = sc.nextLine();
+                        if (choice2.equals("y")) {
+                            String ano = sc.nextLine();
+                            email = email + em + ano;
+                        }
+                        else
+                        {
+                            flag3=false;
+                        }
+                    }
+                    Student obj = new Student(fname, lname, phone,email);
+                    n2.add(obj);
+                    break;
+
+                case 2:
+                    n2.show();
+                    break;
+                case 4:
+                    flag=false;
+                    System.out.println(" BYE FOR NOW ");
+                    break;
+                case 3:
+                    System.out.println("Which one to delete (1-n) ");
+                    n2.show();
+                    int number=sc.nextInt();
+                    n2.delete(number);
+                    n2.show();
+                default:
+                    System.out.println("bye");
+                    break;
+
+            }
+
+        }
+    }
+}
